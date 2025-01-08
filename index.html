@@ -1,241 +1,281 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
-    <title>On-line Kuchařka | Recepty</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recepty</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-</head>
-<style>/* Main CSS */
-    body {
-        font-family: 'Poppins', sans-serif;
-        background: url(Designer.jpeg) no-repeat;
-        background-position: center;
-        background-size: cover;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-    }
-    
-    #container {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0px 10px 15px 10px rgba(0, 0, 0, 0.3);
-        overflow: hidden;
-        width: 827px;
-        height: 600px;
-        padding: 20px;
-        box-sizing: border-box;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
-        overflow-y: scroll;
-    }
-    
-    #list-header {
-        display: flex;
-        align-items: left;
-        justify-content: left;
-    }
-    
-    .blankDiv {
-        background-color: #fff;
-        border: none;
-        padding: 20px;
-        border-radius: 8px;
-        height: 200px;
-        width: 200px;
-        margin: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    #addNoteDiv {
-        background-color: #f9f9f9;
-        border: 1px solid #ddd;
-        padding: 20px;
-        border-radius: 8px;
-        height: 200px;
-        width: 200px;
-        margin: 10px;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    #addNoteDiv:hover {
-        transition: 0.25s;
-        background-color: #f1f1f1;
-    }
-    
-    
-    #addNoteDiv i {
-        font-size: 70px;
-        color: gainsboro;
-    }
-    
-    
-    /* List CSS */
-    #list-container {
-        display: flex;
-        align-items: left;
-        justify-content: left;
-    }
-    
-    ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        flex-wrap: wrap;
-        text-align: center;
-    }
-    
-    li {
-        background-color: #fff385;
-        margin: 5px 0;
-        padding: 20px;
-        border-radius: 8px; /* Rounded corners */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between; /* Added to align buttons to the right */
-        height: 200px;
-        width: 200px;
-        margin: 10px;
-        border-radius: 10px;
-        box-shadow:  9px 9px 18px #b3b3b3,
-                 -9px -9px 18px #ffffff;
-    }
-    
-    li span {
-        font-size: 12px;
-        flex-grow: 1;
-        word-wrap: break-word;
-        overflow-y: scroll;
-    }
-    
-    #editBtn,
-    #deleteBtn {
-        background-color: red;
-        color: #fff;
-        border: none;
-        padding: 5px 10px;
-        margin: 0 5px; /* Adjusted margin for spacing */
-        cursor: pointer;
-        border-radius: 4px;
-        font-size: 12px;
-        width: 60px;
-    }
-    
-    #editBtn {
-        background-color: gold;
-    }
-    
-    #deleteBtn:hover {
-        background-color: darkred;
-    }
-    
-    #editBtn:hover {
-        background-color: goldenrod;
-    }
-    
-    
-    /* Create Note Popup CSS */
-    #popupContainer {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 400px;
-        height: 300px;
-        background-color: white;
-        border: 1px solid #ccc;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    textarea {
-        width: 300px;
-        height: 200px;
-        margin: 10px 0;
-        padding: 10px;
-        box-sizing: border-box;
-        border-radius: 4px;
-        border: 2px solid green;
-    }
-    
-    #btn-container {
-        display: flex;
-    }
-    
-    #submitBtn, #closeBtn {
-        width: 100px;
-        background-color: green;
-        color: #fff;
-        font-size: 14px;
-        border: none;
-        border-radius: 5px;
-        padding: 10px;
-        cursor: pointer;
-        margin: 10px;
-    }
-    
-    #closeBtn {
-        background-color: gainsboro;
-    }
-    
-    
-    /* Editing Popup CSS */
-    #editing-container {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 400px;
-        height: 300px;
-        background-color: white;
-        border: 1px solid #ccc;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    #submitBtn, #closeBtn {
-        width: 100px;
-        background-color: green;
-        color: #fff;
-        font-size: 14px;
-        border: none;
-        border-radius: 5px;
-        padding: 10px;
-        cursor: pointer;
-        margin: 10px;
-    }
-    
-    #closeBtn {
-        background-color: gainsboro;
-    }
+    <style>
+       body {
+    font-family: 'Poppins', sans-serif;
+    background: url(../Designer.jpeg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+#container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 10px 15px 10px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    width: 827px;
+    height: 600px;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    overflow-y: scroll;
+}
+
+#list-header {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+}
+
+.blankDiv {
+    background-color: #fff;
+    border: none;
+    padding: 20px;
+    border-radius: 8px;
+    height: 200px;
+    width: 200px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#addNoteDiv {
+    background: transparent;
+    padding: 20px;
+    border-radius: 8px;
+    height: 200px;
+    width: 200px;
+    margin: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#addNoteDiv i {
+    font-size: 70px;
+    color: gainsboro;
+}
+
+#list-container {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+li {
+    background-color: #fff385;
+    margin: 5px 0;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; 
+    height: 200px;
+    width: 200px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow:  9px 9px 18px #b3b3b3,
+             -9px -9px 18px #ffffff;
+}
+
+li span {
+    font-size: 12px;
+    flex-grow: 1;
+    word-wrap: break-word;
+    overflow-y: scroll;
+}
+
+#editBtn,
+#deleteBtn {
+    background-color: #ba0a0a;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    margin: 0 5px; 
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 12px;
+    width: 60px;
+}
+
+#editBtn {
+    background-color: goldenrod;
+}
+
+#deleteBtn:hover {
+    background-color: red;
+}
+
+#editBtn:hover {
+    background-color: gold;
+}
+
+#popupContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 300px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+textarea {
+    width: 300px;
+    height: 200px;
+    margin: 10px 0;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 2px solid #90aa0b;
+}
+
+#btn-container {
+    display: flex;
+}
+
+#submitBtn, #closeBtn {
+    width: 100px;
+    background-color: #ba0a0a;
+    color: #fff;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+#closeBtn {
+    background-color: gainsboro;
+}
+
+
+#editing-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 300px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+#submitBtn, #closeBtn {
+    width: 100px;
+    background-color:green;
+    color: #fff;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+#closeBtn {
+    background-color: #ba0a0a;
+}
     #search{
         width: 200px;
         height: 30px;
     
     }
+        .ui-bar {
+            background-color: #333;
+            overflow: hidden;
+            padding: 10px 20px;
+        }
+        .ui-bar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .ui-bar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+    
+        .add-recipe-form {
+            margin-bottom: 20px;
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .add-recipe-form input,
+        .add-recipe-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .add-recipe-form button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-recipe-form button:hover {
+            background-color: #2980b9;
+        }
     </style>
+</head>
 <body>
+
+    <div id="uibar"></div>
     <div id="container">
         <div id="list-header">
             <div id="addNoteDiv" onclick="popup()">
@@ -250,52 +290,14 @@
         </div>
     </div>
 </body>
-    <script>
-        /*************************************************************************
-        * Display Notes Logic
-        **************************************************************************/
+<script>
+    function displayNotes() {
+        const notesList = document.getElementById('notes-list');
+        notesList.innerHTML = '';
 
-        function displayNotes() {
-            const notesList = document.getElementById('notes-list');
-            notesList.innerHTML = '';
+        const notes = JSON.parse(localStorage.getItem('notes')) || [];
 
-            const notes = JSON.parse(localStorage.getItem('notes')) || [];
-
-            notes.forEach(note => {
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `
-                <span>${note.text}</span>
-                <div id="noteBtns-container">
-                    <button id="editBtn" onclick="editNote(${note.id})"><i class="fa-solid fa-pen"></i></button>
-                    <button id="deleteBtn" onclick="confirmDelete(${note.id})"><i class="fa-solid fa-trash"></i></button>
-                </div>
-                `;
-                notesList.appendChild(listItem);
-            });
-        }
-
-        /*************************************************************************
-        * Filter Notes Logic
-        **************************************************************************/
-
-        function filterNotes() {
-    const searchValue = document.getElementById('search').value.toLowerCase();
-    const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    const filteredNotes = notes.filter(note => note.text.toLowerCase().includes(searchValue));
-
-    const notesList = document.getElementById('notes-list');
-    notesList.innerHTML = '';
-
-    if (filteredNotes.length === 0) {
-        // Pokud žádné recepty neodpovídají hledání, zobrazí se zpráva
-        const noResultsMessage = document.createElement('li');
-        noResultsMessage.textContent = 'Recept neexistuje.';
-        noResultsMessage.style.color = 'red'; // Styl pro zvýraznění zprávy
-        noResultsMessage.style.textAlign = 'center';
-        notesList.appendChild(noResultsMessage);
-    } else {
-        // Pokud jsou nějaké recepty, zobrazí se je
-        filteredNotes.forEach(note => {
+        notes.forEach(note => {
             const listItem = document.createElement('li');
             listItem.innerHTML = `
             <span>${note.text}</span>
@@ -307,138 +309,145 @@
             notesList.appendChild(listItem);
         });
     }
+
+
+    function filterNotes() {
+const searchValue = document.getElementById('search').value.toLowerCase();
+const notes = JSON.parse(localStorage.getItem('notes')) || [];
+const filteredNotes = notes.filter(note => note.text.toLowerCase().includes(searchValue));
+
+const notesList = document.getElementById('notes-list');
+notesList.innerHTML = '';
+
+if (filteredNotes.length === 0) {
+    const noResultsMessage = document.createElement('li');
+    noResultsMessage.textContent = 'Recept neexistuje. Můžete přidat pomocí "+" nahoře';
+    noResultsMessage.style.color = 'black';
+    noResultsMessage.style.textAlign = 'center';
+    notesList.appendChild(noResultsMessage);
+} else {
+    filteredNotes.forEach(note => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+        <span>${note.text}</span>
+        <div id="noteBtns-container">
+            <button id="editBtn" onclick="editNote(${note.id})"><i class="fa-solid fa-pen"></i></button>
+            <button id="deleteBtn" onclick="confirmDelete(${note.id})"><i class="fa-solid fa-trash"></i></button>
+        </div>
+        `;
+        notesList.appendChild(listItem);
+    });
+}
 }
 
-
-        /*************************************************************************
-        * Confirm Delete Logic
-        **************************************************************************/
-
-        function confirmDelete(noteId) {
-            if (confirm("Opravdu si přejete smazat tento recept?")) {
-                deleteNote(noteId);
-            }
+    function confirmDelete(noteId) {
+        if (confirm("Opravdu si přejete smazat tento recept?")) {
+            deleteNote(noteId);
         }
+    }
 
-        /*************************************************************************
-        * Delete Note Logic
-        **************************************************************************/
+    function deleteNote(noteId) {
+        let notes = JSON.parse(localStorage.getItem('notes')) || [];
+        notes = notes.filter(note => note.id !== noteId);
 
-        function deleteNote(noteId) {
-            let notes = JSON.parse(localStorage.getItem('notes')) || [];
-            notes = notes.filter(note => note.id !== noteId);
+        localStorage.setItem('notes', JSON.stringify(notes));
+        displayNotes();
+    }
 
-            localStorage.setItem('notes', JSON.stringify(notes));
+    function popup() {
+        const popupContainer = document.createElement("div");
+
+        popupContainer.innerHTML = `
+        <div id="popupContainer">
+            <h1>Nový recept</h1>
+            <textarea id="note-text" placeholder="Zadejte ingredience..."></textarea>
+            <div id="btn-container">
+                <button id="submitBtn" onclick="createNote()">Vytvořit recept</button>
+                <button id="closeBtn" onclick="closePopup()">Zavřít</button>
+            </div>
+        </div>
+        `;
+        document.body.appendChild(popupContainer);
+    }
+
+    function closePopup() {
+        const popupContainer = document.getElementById("popupContainer");
+        if(popupContainer) {
+            popupContainer.remove();
+        }
+    }
+
+    function createNote() {
+        const popupContainer = document.getElementById('popupContainer');
+        const noteText = document.getElementById('note-text').value;
+        if (noteText.trim() !== '') {
+            const note = {
+                id: new Date().getTime(),
+                text: noteText
+            };
+
+            const existingNotes = JSON.parse(localStorage.getItem('notes')) || [];
+            existingNotes.push(note);
+
+            localStorage.setItem('notes', JSON.stringify(existingNotes));
+
+            document.getElementById('note-text').value = '';
+
+            popupContainer.remove();
             displayNotes();
         }
+    }
 
-        /*************************************************************************
-        * Create Note Popup Logic
-        **************************************************************************/
 
-        function popup() {
-            const popupContainer = document.createElement("div");
+    function editNote(noteId) {
+        const notes = JSON.parse(localStorage.getItem('notes')) || [];
+        const noteToEdit = notes.find(note => note.id == noteId);
+        const noteText = noteToEdit ? noteToEdit.text : '';
+        const editingPopup = document.createElement("div");
 
-            popupContainer.innerHTML = `
-            <div id="popupContainer">
-                <h1>Nový recept</h1>
-                <textarea id="note-text" placeholder="Zadejte ingredience..."></textarea>
-                <div id="btn-container">
-                    <button id="submitBtn" onclick="createNote()">Vytvořit recept</button>
-                    <button id="closeBtn" onclick="closePopup()">Zavřít</button>
-                </div>
+        editingPopup.innerHTML = `
+        <div id="editing-container" data-note-id="${noteId}">
+            <h1>Edit Note</h1>
+            <textarea id="note-text">${noteText}</textarea>
+            <div id="btn-container">
+                <button id="submitBtn" onclick="updateNote()">Done</button>
+                <button id="closeBtn" onclick="closeEditPopup()">Cancel</button>
             </div>
-            `;
-            document.body.appendChild(popupContainer);
+        </div>
+        `;
+
+        document.body.appendChild(editingPopup);
+    }
+
+    function closeEditPopup() {
+        const editingPopup = document.getElementById("editing-container");
+
+        if(editingPopup) {
+            editingPopup.remove();
         }
+    }
 
-        function closePopup() {
-            const popupContainer = document.getElementById("popupContainer");
-            if(popupContainer) {
-                popupContainer.remove();
-            }
+    function updateNote() {
+        const noteText = document.getElementById('note-text').value.trim();
+        const editingPopup = document.getElementById('editing-container');
+
+        if (noteText !== '') {
+            const noteId = editingPopup.getAttribute('data-note-id');
+            let notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+            const updatedNotes = notes.map(note => {
+                if (note.id == noteId) {
+                    return { id: note.id, text: noteText };
+                }
+                return note;
+            });
+
+            localStorage.setItem('notes', JSON.stringify(updatedNotes));
+
+            editingPopup.remove();
+            displayNotes();
         }
-
-        function createNote() {
-            const popupContainer = document.getElementById('popupContainer');
-            const noteText = document.getElementById('note-text').value;
-            if (noteText.trim() !== '') {
-                const note = {
-                    id: new Date().getTime(),
-                    text: noteText
-                };
-
-                const existingNotes = JSON.parse(localStorage.getItem('notes')) || [];
-                existingNotes.push(note);
-
-                localStorage.setItem('notes', JSON.stringify(existingNotes));
-
-                document.getElementById('note-text').value = '';
-
-                popupContainer.remove();
-                displayNotes();
-            }
-        }
-
-        /*************************************************************************
-        * Edit Note Popup Logic
-        **************************************************************************/
-
-        function editNote(noteId) {
-            const notes = JSON.parse(localStorage.getItem('notes')) || [];
-            const noteToEdit = notes.find(note => note.id == noteId);
-            const noteText = noteToEdit ? noteToEdit.text : '';
-            const editingPopup = document.createElement("div");
-
-            editingPopup.innerHTML = `
-            <div id="editing-container" data-note-id="${noteId}">
-                <h1>Edit Note</h1>
-                <textarea id="note-text">${noteText}</textarea>
-                <div id="btn-container">
-                    <button id="submitBtn" onclick="updateNote()">Done</button>
-                    <button id="closeBtn" onclick="closeEditPopup()">Cancel</button>
-                </div>
-            </div>
-            `;
-
-            document.body.appendChild(editingPopup);
-        }
-
-        function closeEditPopup() {
-            const editingPopup = document.getElementById("editing-container");
-
-            if(editingPopup) {
-                editingPopup.remove();
-            }
-        }
-
-        function updateNote() {
-            const noteText = document.getElementById('note-text').value.trim();
-            const editingPopup = document.getElementById('editing-container');
-
-            if (noteText !== '') {
-                const noteId = editingPopup.getAttribute('data-note-id');
-                let notes = JSON.parse(localStorage.getItem('notes')) || [];
-
-                const updatedNotes = notes.map(note => {
-                    if (note.id == noteId) {
-                        return { id: note.id, text: noteText };
-                    }
-                    return note;
-                });
-
-                localStorage.setItem('notes', JSON.stringify(updatedNotes));
-
-                editingPopup.remove();
-                displayNotes();
-            }
-        }
-
-        /*************************************************************************
-        * Initial Notes Display
-        **************************************************************************/
-
-        displayNotes();
-    </script>
+    }
+    displayNotes();
+</script>
 </html>
-
